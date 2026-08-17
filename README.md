@@ -26,6 +26,20 @@ The notebook performs, in order:
 - paired bootstrap and permutation significance tests; and
 - generation of the figures reported in the paper.
 
+**Running it:**
+ 
+1. Place `clinical_deid_training_set.json`, `clinical_deid_validation_set.json`
+   and `clinical_deid_test_set.json` in `CFG.data_dir`, or set
+   `CFG.from_hub = True` to pull the corpus from the Hub.
+2. Run once with `CFG.SMOKE = True` (~10 minutes). This exercises the entire
+   code path on a small subset. **Smoke-run numbers are not results**: one seed,
+   one epoch, 200 resamples.
+3. Set `CFG.SMOKE = False` and run top to bottom.
+4. Read every number from `outputs/results.json`.
+Teacher generation is the expensive stage and is cached to
+`outputs/soft_labels.npz`. Re-running that cell after an interrupted session
+reloads the cache in seconds without touching the GPU.
+
 ### `anonymed_phase4.ipynb` — Interface vs. scale and ten-seed evaluation
 
 Contains two complementary experiments.
